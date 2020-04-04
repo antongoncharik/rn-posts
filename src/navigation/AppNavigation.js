@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavigationContainer, DefaultTheme, DarkTheme  } from '@react-navigation/native';
+import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { MainScreen } from '../screens/MainScreen';
@@ -10,19 +11,19 @@ import { CreateScreen } from '../screens/CreateScreen';
 
 const Stack = createStackNavigator();
 
-const StackNavigation = () => {
+const StackNavigation = (props) => {
     return (
         <Stack.Navigator
-            // screenOptions={{
-            //     headerStyle: {
-            //         backgroundColor: '#f4511e',
-            //     },
-            //     headerTintColor: '#fff',
-            //     headerTitleStyle: {
-            //         fontWeight: 'bold',
-            //         fontSize: 24,
-            //     },
-            // }}
+        // screenOptions={{
+        //     headerStyle: {
+        //         backgroundColor: '#f4511e',
+        //     },
+        //     headerTintColor: '#fff',
+        //     headerTitleStyle: {
+        //         fontWeight: 'bold',
+        //         fontSize: 24,
+        //     },
+        // }}
         >
             <Stack.Screen
                 name='MainScreen'
@@ -38,6 +39,7 @@ const StackNavigation = () => {
                 name='AboutScreen'
                 component={AboutScreen}
                 options={{ title: 'About' }}
+                initialParams={{ setIsLight: props.setIsLight }}
             />
             <Stack.Screen
                 name='BookedScreen'
@@ -48,15 +50,20 @@ const StackNavigation = () => {
                 name='CreateScreen'
                 component={CreateScreen}
                 options={{ title: 'Create' }}
+                
             />
         </Stack.Navigator>
     );
 };
 
-export const AppNavigation = () => {
+export const AppNavigation = (props) => {
+    const scheme = useColorScheme('dark');
+
     return (
-        <NavigationContainer>
-            <StackNavigation />
-        </NavigationContainer>
+        <AppearanceProvider>
+            <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+                <StackNavigation props={props}/>
+            </NavigationContainer>
+        </AppearanceProvider>
     );
 };
