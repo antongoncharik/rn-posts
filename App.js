@@ -7,8 +7,6 @@ import { initialLoad } from './src/intialLoad';
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
-  const [isLight, setIsLight] = useState(true);
-  console.log(isLight)
 
   if (!isReady) {
     return (
@@ -20,5 +18,5 @@ export default function App() {
     )
   }
 
-  return <AppNavigation isLight={isLight} setIsLight={setIsLight}/>
+  return <AppNavigation />
 };

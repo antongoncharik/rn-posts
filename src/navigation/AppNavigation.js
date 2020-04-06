@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,7 +11,7 @@ import { CreateScreen } from '../screens/CreateScreen';
 
 const Stack = createStackNavigator();
 
-const StackNavigation = (props) => {
+const StackNavigation = () => {
     return (
         <Stack.Navigator
         // screenOptions={{
@@ -39,7 +39,6 @@ const StackNavigation = (props) => {
                 name='AboutScreen'
                 component={AboutScreen}
                 options={{ title: 'About' }}
-                initialParams={{ setIsLight: props.setIsLight }}
             />
             <Stack.Screen
                 name='BookedScreen'
@@ -56,13 +55,14 @@ const StackNavigation = (props) => {
     );
 };
 
-export const AppNavigation = (props) => {
-    const scheme = useColorScheme('dark');
+export const AppNavigation = () => {
+    const [isDarkTheme, setIsDarkTheme] = useState(false);
+    const scheme = useColorScheme();
 
     return (
         <AppearanceProvider>
             <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-                <StackNavigation props={props}/>
+                <StackNavigation />
             </NavigationContainer>
         </AppearanceProvider>
     );
