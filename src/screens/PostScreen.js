@@ -1,15 +1,37 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, ScrollView } from 'react-native';
+
+import { DATA } from '../data';
 
 export const PostScreen = (props) => {
-    return (
-        <View>
-            <Button
-                title="Go to About"
-                onPress={() => props.navigation.navigate('AboutScreen')}
-            />
+    const post = DATA.find(item => item.id === props.route.params.id);
 
-            <Text>PostScreen</Text>
-        </View>
+    return (
+        <ScrollView style={styles.container}>
+            <Image style={styles.image}
+                source={{ uri: post.img }}
+            />
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>{post.text}</Text>
+            </View>
+            <Button title='Delete'
+                onPress={() => props.route.params.deletePost(props.route.params.id)} />
+        </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: 10,
+    },
+    image: {
+        width: '100%',
+        height: 200,
+    },
+    textContainer: {
+        alignItems: 'center',
+    },
+    text: {
+        fontFamily: 'openSans-regular',
+    }
+});

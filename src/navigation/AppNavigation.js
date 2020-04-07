@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Button } from 'react-native';
 
 import { MainScreen } from '../screens/MainScreen';
 import { PostScreen } from '../screens/PostScreen';
@@ -28,7 +29,23 @@ const StackNavigation = () => {
             <Stack.Screen
                 name='MainScreen'
                 component={MainScreen}
-                options={{ title: 'Main' }}
+                options={{
+                    title: 'Main',
+                    headerRight: () => (
+                        <>
+                        <Button
+                            onPress={() => alert('This is a button!')}
+                            title="Info"
+                            color='red'
+                        />
+                        <Button
+                            onPress={() => alert('This is a button!')}
+                            title="Info"
+                            color='red'
+                        />
+                        </>
+                    ),
+                }}
             />
             <Stack.Screen
                 name='PostScreen'
@@ -49,7 +66,8 @@ const StackNavigation = () => {
                 name='CreateScreen'
                 component={CreateScreen}
                 options={{ title: 'Create' }}
-                
+            // options={({ route }) => ({ title: route.params.name })}
+
             />
         </Stack.Navigator>
     );

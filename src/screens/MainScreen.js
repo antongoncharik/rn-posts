@@ -1,17 +1,47 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList, Alert } from 'react-native';
+
+import { Post } from '../components/Post';
+import { DATA } from '../data';
 
 export const MainScreen = (props) => {
+    const handlerDeletePost = (id) => {
+        Alert.alert(
+            'Delete post',
+            'Are you sure you want to delete the post?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: () => { }
+                }
+            ],
+            { cancelable: false }
+        )
+    };
+    const handlerOpenPost = (id) => {
+        props.navigation.navigate('PostScreen', { id, deletePost: handlerDeletePost })
+    };
+
     return (
         <View style={styles.container}>
-            <Button
-                title="Go to Post"
-                onPress={() => props.navigation.navigate('PostScreen')}
+            <FlatList
+                data={DATA}
+                renderItem={({ item }) => <Post id={item.id}
+                    openPost={handlerOpenPost} />}
+                keyExtractor={item => item.id}
             />
-            <Text>MainScreen</Text>
         </View>
     );
 };
+
+MainScreen.navigationOptions = {
+    headerRight: <Text>egwgw</Text>
+}
 
 const styles = StyleSheet.create({
     container: {
