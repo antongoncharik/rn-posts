@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Button } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import { MainScreen } from '../screens/MainScreen';
 import { PostScreen } from '../screens/PostScreen';
 import { AboutScreen } from '../screens/AboutScreen';
 import { BookedScreen } from '../screens/BookedScreen';
 import { CreateScreen } from '../screens/CreateScreen';
+import { AppHeaderIcon } from '../components/AppHeaderIcon';
+
+const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator();
 
@@ -32,25 +36,45 @@ const StackNavigation = () => {
                 options={{
                     title: 'Main',
                     headerRight: () => (
-                        <>
-                        <Button
-                            onPress={() => alert('This is a button!')}
-                            title="Info"
-                            color='red'
-                        />
-                        <Button
-                            onPress={() => alert('This is a button!')}
-                            title="Info"
-                            color='red'
-                        />
-                        </>
+                        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                            <Item
+                                title='Take photo'
+                                iconName='ios-camera'
+                                onPress={() => console.log('Press photo')}
+                            />
+                        </HeaderButtons>
+                    ),
+                    headerLeft: () => (
+                        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                            <Item
+                                title='Toggle drawer'
+                                iconName='ios-menu'
+                                onPress={() => console.log('Press menu')}
+                            />
+                        </HeaderButtons>
                     ),
                 }}
             />
             <Stack.Screen
                 name='PostScreen'
                 component={PostScreen}
-                options={{ title: 'Post' }}
+                options={(props) => ({
+                    title: `Post from ${new Date(props.route.params.date).toLocaleDateString()}`,
+                    headerRight: () => {
+                        const booked = props.route.params.booked;
+                        const iconName = booked ? 'ios-star' : 'ios-star-outline';
+                        return (
+                            <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
+                                <Item
+                                    title='Booked'
+                                    iconName={iconName}
+                                    onPress={() => console.log('Press photo')}
+                                />
+                            </HeaderButtons>
+                        )
+                    },
+                })}
+
             />
             <Stack.Screen
                 name='AboutScreen'
@@ -67,7 +91,6 @@ const StackNavigation = () => {
                 component={CreateScreen}
                 options={{ title: 'Create' }}
             // options={({ route }) => ({ title: route.params.name })}
-
             />
         </Stack.Navigator>
     );

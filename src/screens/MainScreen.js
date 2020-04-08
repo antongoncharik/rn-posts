@@ -23,25 +23,21 @@ export const MainScreen = (props) => {
             { cancelable: false }
         )
     };
-    const handlerOpenPost = (id) => {
-        props.navigation.navigate('PostScreen', { id, deletePost: handlerDeletePost })
+    const handlerOpenPost = (id, booked, date) => {
+        props.navigation.navigate('PostScreen', { id, deletePost: handlerDeletePost, booked, date })
     };
 
     return (
         <View style={styles.container}>
             <FlatList
+                keyExtractor={item => item.id}
                 data={DATA}
                 renderItem={({ item }) => <Post id={item.id}
                     openPost={handlerOpenPost} />}
-                keyExtractor={item => item.id}
             />
         </View>
     );
 };
-
-MainScreen.navigationOptions = {
-    headerRight: <Text>egwgw</Text>
-}
 
 const styles = StyleSheet.create({
     container: {

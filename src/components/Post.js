@@ -7,7 +7,7 @@ export const Post = (props) => {
 
     return (
         <TouchableOpacity activeOpacity={0.7}
-            onPress={() => props.openPost(props.id)}>
+            onPress={() => props.openPost(props.id, post.booked, post.date)}>
             <View style={styles.container}>
                 <ImageBackground source={{ uri: post.img }} style={styles.image}>
                     <View style={styles.textContainer}>
