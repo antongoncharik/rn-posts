@@ -12,11 +12,56 @@ import { BookedScreen } from '../screens/BookedScreen';
 import { CreateScreen } from '../screens/CreateScreen';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
 
-const Tab = createBottomTabNavigator();
-
 const Stack = createStackNavigator();
 
-const StackNavigation = () => {
+const Tab = createBottomTabNavigator();
+
+const BookedNavigation = () => {
+    return (
+        <Stack.Navigator>
+
+            {/* <Stack.Screen
+                name='PostScreen'
+                component={PostScreen}
+                options={(props) => ({
+                    title: `Post from ${new Date(props.route.params.date).toLocaleDateString()}`,
+                    headerRight: () => {
+                        const booked = props.route.params.booked;
+                        const iconName = booked ? 'ios-star' : 'ios-star-outline';
+                        return (
+                            <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
+                                <Item
+                                    title='Booked'
+                                    iconName={iconName}
+                                    onPress={() => console.log('Press photo')}
+                                />
+                            </HeaderButtons>
+                        )
+                    },
+                })}
+            /> */}
+
+            <Stack.Screen
+                name='AboutScreen'
+                component={AboutScreen}
+                options={(props) => ({
+                    title: 'AboutScreen',
+                })}
+            />
+
+            <Stack.Screen
+                name='BookedScreen'
+                component={BookedScreen}
+                options={(props) => ({
+                    title: 'BookedScreen',
+                })}
+            />
+
+        </Stack.Navigator>
+    );
+};
+
+const PostNavigation = () => {
     return (
         <Stack.Navigator
         // screenOptions={{
@@ -74,25 +119,29 @@ const StackNavigation = () => {
                         )
                     },
                 })}
-
-            />
-            <Stack.Screen
-                name='AboutScreen'
-                component={AboutScreen}
-                options={{ title: 'About' }}
-            />
-            <Stack.Screen
-                name='BookedScreen'
-                component={BookedScreen}
-                options={{ title: 'Booked' }}
-            />
-            <Stack.Screen
-                name='CreateScreen'
-                component={CreateScreen}
-                options={{ title: 'Create' }}
-            // options={({ route }) => ({ title: route.params.name })}
             />
         </Stack.Navigator>
+    );
+};
+
+const RootNavigation = () => {
+    return (
+        <Tab.Navigator>
+            <Tab.Screen
+                name='Post'
+                component={PostNavigation}
+                options={(props) => ({
+                    title: 'Post',
+                })}
+            />
+            <Tab.Screen
+                name='Booked'
+                component={BookedNavigation}
+                options={(props) => ({
+                    title: 'Booked',
+                })}
+            />
+        </Tab.Navigator>
     );
 };
 
@@ -103,7 +152,7 @@ export const AppNavigation = () => {
     return (
         <AppearanceProvider>
             <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-                <StackNavigation />
+                <RootNavigation />
             </NavigationContainer>
         </AppearanceProvider>
     );

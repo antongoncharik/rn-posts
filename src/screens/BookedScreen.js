@@ -3,8 +3,16 @@ import { View, Text, StyleSheet } from 'react-native';
 
 export const BookedScreen = () => {
     return (
-        <View>
+        <View style={styles.container}>
             <Text>BookedScreen</Text>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+});
