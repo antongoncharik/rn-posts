@@ -4,6 +4,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { Ionicons } from '@expo/vector-icons';
 
 import { MainScreen } from '../screens/MainScreen';
 import { PostScreen } from '../screens/PostScreen';
@@ -12,58 +13,11 @@ import { BookedScreen } from '../screens/BookedScreen';
 import { CreateScreen } from '../screens/CreateScreen';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
 
-const Stack = createStackNavigator();
+const PostStack = createStackNavigator();
 
-const Tab = createBottomTabNavigator();
-
-const BookedNavigation = () => {
+const PostStackScreen = () => {
     return (
-        <Stack.Navigator>
-
-            {/* <Stack.Screen
-                name='PostScreen'
-                component={PostScreen}
-                options={(props) => ({
-                    title: `Post from ${new Date(props.route.params.date).toLocaleDateString()}`,
-                    headerRight: () => {
-                        const booked = props.route.params.booked;
-                        const iconName = booked ? 'ios-star' : 'ios-star-outline';
-                        return (
-                            <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
-                                <Item
-                                    title='Booked'
-                                    iconName={iconName}
-                                    onPress={() => console.log('Press photo')}
-                                />
-                            </HeaderButtons>
-                        )
-                    },
-                })}
-            /> */}
-
-            <Stack.Screen
-                name='AboutScreen'
-                component={AboutScreen}
-                options={(props) => ({
-                    title: 'AboutScreen',
-                })}
-            />
-
-            <Stack.Screen
-                name='BookedScreen'
-                component={BookedScreen}
-                options={(props) => ({
-                    title: 'BookedScreen',
-                })}
-            />
-
-        </Stack.Navigator>
-    );
-};
-
-const PostNavigation = () => {
-    return (
-        <Stack.Navigator
+        <PostStack.Navigator
         // screenOptions={{
         //     headerStyle: {
         //         backgroundColor: '#f4511e',
@@ -75,7 +29,7 @@ const PostNavigation = () => {
         //     },
         // }}
         >
-            <Stack.Screen
+            <PostStack.Screen
                 name='MainScreen'
                 component={MainScreen}
                 options={{
@@ -100,7 +54,7 @@ const PostNavigation = () => {
                     ),
                 }}
             />
-            <Stack.Screen
+            <PostStack.Screen
                 name='PostScreen'
                 component={PostScreen}
                 options={(props) => ({
@@ -120,28 +74,89 @@ const PostNavigation = () => {
                     },
                 })}
             />
-        </Stack.Navigator>
+        </PostStack.Navigator>
     );
 };
 
-const RootNavigation = () => {
+const BookedStack = createStackNavigator();
+
+const BookedStackScreen = () => {
     return (
-        <Tab.Navigator>
-            <Tab.Screen
+        <BookedStack.Navigator>
+
+            {/* <Stack.Screen
+                name='PostScreen'
+                component={PostScreen}
+                options={(props) => ({
+                    title: `Post from ${new Date(props.route.params.date).toLocaleDateString()}`,
+                    headerRight: () => {
+                        const booked = props.route.params.booked;
+                        const iconName = booked ? 'ios-star' : 'ios-star-outline';
+                        return (
+                            <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
+                                <Item
+                                    title='Booked'
+                                    iconName={iconName}
+                                    onPress={() => console.log('Press photo')}
+                                />
+                            </HeaderButtons>
+                        )
+                    },
+                })}
+            /> */}
+
+            <BookedStack.Screen
+                name='AboutScreen'
+                component={AboutScreen}
+                options={(props) => ({
+                    title: 'AboutScreen',
+                })}
+            />
+
+            <BookedStack.Screen
+                name='BookedScreen'
+                component={BookedScreen}
+                options={(props) => ({
+                    title: 'BookedScreen',
+                })}
+            />
+
+        </BookedStack.Navigator>
+    );
+};
+
+const RootTab = createBottomTabNavigator();
+
+const RootTabScreen = () => {
+    return (
+        <RootTab.Navigator
+            tabBarOptions={{
+                activeTintColor: 'red'
+            }}
+        >
+            <RootTab.Screen
                 name='Post'
-                component={PostNavigation}
+                component={PostStackScreen}
                 options={(props) => ({
                     title: 'Post',
+                    tabBarIcon: info => (
+                        <Ionicons name='ios-albums'
+                            size={25} />
+                    )
                 })}
             />
-            <Tab.Screen
+            <RootTab.Screen
                 name='Booked'
-                component={BookedNavigation}
+                component={BookedStackScreen}
                 options={(props) => ({
                     title: 'Booked',
+                    tabBarIcon: info => (
+                        <Ionicons name='ios-star'
+                            size={25} />
+                    )
                 })}
             />
-        </Tab.Navigator>
+        </RootTab.Navigator>
     );
 };
 
@@ -152,7 +167,7 @@ export const AppNavigation = () => {
     return (
         <AppearanceProvider>
             <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-                <RootNavigation />
+                <RootTabScreen />
             </NavigationContainer>
         </AppearanceProvider>
     );
