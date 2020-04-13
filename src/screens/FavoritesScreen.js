@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Button, FlatList, Alert } from 'react-native';
 import { PostsList } from '../components/PostsList';
 import { DATA } from '../data';
 
-export const MainScreen = (props) => {
+export const FavoritesScreen = (props) => {
     const handlerDeletePost = (id) => {
         Alert.alert(
             'Delete post',
@@ -28,7 +28,7 @@ export const MainScreen = (props) => {
     };
 
     return (
-        <PostsList data={DATA}
+        <PostsList data={DATA.filter(item => item.booked)}
             openPost={handlerOpenPost} />
     )
 };

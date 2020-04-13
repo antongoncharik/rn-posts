@@ -3,19 +3,19 @@ import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { Ionicons } from '@expo/vector-icons';
 
 import { MainScreen } from '../screens/MainScreen';
 import { PostScreen } from '../screens/PostScreen';
 import { AboutScreen } from '../screens/AboutScreen';
-import { BookedScreen } from '../screens/BookedScreen';
+import { FavoritesScreen } from '../screens/FavoritesScreen';
 import { CreateScreen } from '../screens/CreateScreen';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
 
 const PostStack = createStackNavigator();
-
-const PostStackScreen = () => {
+const PostStackScreen = (props) => {
     return (
         <PostStack.Navigator
         // screenOptions={{
@@ -48,7 +48,7 @@ const PostStackScreen = () => {
                             <Item
                                 title='Toggle drawer'
                                 iconName='ios-menu'
-                                onPress={() => console.log('Press menu')}
+                                onPress={() => props.navigation.toggleDrawer()}
                             />
                         </HeaderButtons>
                     ),
@@ -78,85 +78,138 @@ const PostStackScreen = () => {
     );
 };
 
-const BookedStack = createStackNavigator();
-
-const BookedStackScreen = () => {
+const FavoritesStack = createStackNavigator();
+const FavoritesStackScreen = () => {
     return (
-        <BookedStack.Navigator>
-
-            {/* <Stack.Screen
-                name='PostScreen'
-                component={PostScreen}
+        <FavoritesStack.Navigator>
+            <FavoritesStack.Screen
+                name='FavoritesScreen'
+                component={FavoritesScreen}
                 options={(props) => ({
-                    title: `Post from ${new Date(props.route.params.date).toLocaleDateString()}`,
-                    headerRight: () => {
-                        const booked = props.route.params.booked;
-                        const iconName = booked ? 'ios-star' : 'ios-star-outline';
-                        return (
-                            <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
-                                <Item
-                                    title='Booked'
-                                    iconName={iconName}
-                                    onPress={() => console.log('Press photo')}
-                                />
-                            </HeaderButtons>
-                        )
-                    },
-                })}
-            /> */}
-
-            <BookedStack.Screen
-                name='AboutScreen'
-                component={AboutScreen}
-                options={(props) => ({
-                    title: 'AboutScreen',
+                    title: 'Favorites',
+                    headerLeft: () => (
+                        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                            <Item
+                                title='Toggle drawer'
+                                iconName='ios-menu'
+                                onPress={() => props.navigation.toggleDrawer()}
+                            />
+                        </HeaderButtons>
+                    ),
                 })}
             />
-
-            <BookedStack.Screen
-                name='BookedScreen'
-                component={BookedScreen}
-                options={(props) => ({
-                    title: 'BookedScreen',
-                })}
-            />
-
-        </BookedStack.Navigator>
+        </FavoritesStack.Navigator>
     );
 };
 
-const RootTab = createBottomTabNavigator();
-
-const RootTabScreen = () => {
+const AboutStack = createStackNavigator();
+const AboutStackScreen = (props) => {
     return (
-        <RootTab.Navigator
+        <AboutStack.Navigator>
+            <AboutStack.Screen
+                name='AboutScreen'
+                component={AboutScreen}
+                options={(props) => ({
+                    title: 'About',
+                    headerLeft: () => (
+                        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                            <Item
+                                title='Toggle drawer'
+                                iconName='ios-menu'
+                                onPress={() => props.navigation.toggleDrawer()}
+                            />
+                        </HeaderButtons>
+                    ),
+                })}
+            />
+        </AboutStack.Navigator>
+    );
+};
+
+const CreateStack = createStackNavigator();
+const CreateStackScreen = (props) => {
+    return (
+        <CreateStack.Navigator>
+            <CreateStack.Screen
+                name='CreateScreen'
+                component={CreateScreen}
+                options={(props) => ({
+                    title: 'Create',
+                    headerLeft: () => (
+                        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                            <Item
+                                title='Toggle drawer'
+                                iconName='ios-menu'
+                                onPress={() => props.navigation.toggleDrawer()}
+                            />
+                        </HeaderButtons>
+                    ),
+                })}
+            />
+        </CreateStack.Navigator>
+    );
+};
+
+const PostsTab = createBottomTabNavigator();
+const PostsTabScreen = () => {
+    return (
+        <PostsTab.Navigator
             tabBarOptions={{
-                activeTintColor: 'red'
+                // activeTintColor: 'red'
             }}
         >
-            <RootTab.Screen
-                name='Post'
+            <PostsTab.Screen
+                name='PostStackScreen'
                 component={PostStackScreen}
                 options={(props) => ({
-                    title: 'Post',
+                    title: 'Posts',
                     tabBarIcon: info => (
                         <Ionicons name='ios-albums'
-                            size={25} />
+                            size={24} />
                     )
                 })}
             />
-            <RootTab.Screen
-                name='Booked'
-                component={BookedStackScreen}
+            <PostsTab.Screen
+                name='FavoritesStackScreen'
+                component={FavoritesStackScreen}
                 options={(props) => ({
-                    title: 'Booked',
+                    title: 'Favorites',
                     tabBarIcon: info => (
                         <Ionicons name='ios-star'
-                            size={25} />
+                            size={24} />
                     )
                 })}
             />
-        </RootTab.Navigator>
+        </PostsTab.Navigator>
+    );
+};
+
+const RootDrawer = createDrawerNavigator();
+const RootDrawerScreen = () => {
+    return (
+        <RootDrawer.Navigator>
+            <RootDrawer.Screen
+                name='PostsTabScreen'
+                component={PostsTabScreen}
+                options={(props) => ({
+                    drawerLabel: 'Main',
+                })}
+            />
+            <RootDrawer.Screen
+                name='CreateStackScreen'
+                component={CreateStackScreen}
+                options={(props) => ({
+                    drawerLabel: 'Create post',
+                })}
+            />
+            <RootDrawer.Screen
+                name='AboutStackScreen'
+                component={AboutStackScreen}
+                options={(props) => ({
+                    drawerLabel: 'About',
+                })}
+            />
+        </RootDrawer.Navigator>
     );
 };
 
@@ -167,7 +220,7 @@ export const AppNavigation = () => {
     return (
         <AppearanceProvider>
             <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-                <RootTabScreen />
+                <RootDrawerScreen />
             </NavigationContainer>
         </AppearanceProvider>
     );
