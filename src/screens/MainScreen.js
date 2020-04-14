@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, FlatList, Alert } from 'react-native';
+import { Alert } from 'react-native';
 
 import { PostsList } from '../components/PostsList';
 import { DATA } from '../data';

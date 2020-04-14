@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import React from 'react';
+import { AppearanceProvider } from 'react-native-appearance';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -39,7 +39,7 @@ const PostStackScreen = (props) => {
                             <Item
                                 title='Take photo'
                                 iconName='ios-camera'
-                                onPress={() => console.log('Press photo')}
+                                onPress={() => props.navigation.navigate('CreateStackScreen')}
                             />
                         </HeaderButtons>
                     ),
@@ -153,11 +153,7 @@ const CreateStackScreen = (props) => {
 const PostsTab = createBottomTabNavigator();
 const PostsTabScreen = () => {
     return (
-        <PostsTab.Navigator
-            tabBarOptions={{
-                // activeTintColor: 'red'
-            }}
-        >
+        <PostsTab.Navigator>
             <PostsTab.Screen
                 name='PostStackScreen'
                 component={PostStackScreen}
@@ -214,12 +210,9 @@ const RootDrawerScreen = () => {
 };
 
 export const AppNavigation = () => {
-    const [isDarkTheme, setIsDarkTheme] = useState(false);
-    const scheme = useColorScheme();
-
     return (
         <AppearanceProvider>
-            <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <NavigationContainer>
                 <RootDrawerScreen />
             </NavigationContainer>
         </AppearanceProvider>
