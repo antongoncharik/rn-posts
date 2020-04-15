@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, Image, ScrollView } from 'react-native';
-
-import { DATA } from '../data';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const PostScreen = (props) => {
-    const post = DATA.find(item => item.id === props.route.params.id);
+    const data = useSelector(state => state.posts.posts);
+
+    const post = data.find(item => item.id === props.route.params.id);
 
     return (
         <ScrollView style={styles.container}>

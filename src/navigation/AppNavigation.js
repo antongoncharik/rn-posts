@@ -67,7 +67,9 @@ const PostStackScreen = (props) => {
                                 <Item
                                     title='Booked'
                                     iconName={iconName}
-                                    onPress={() => console.log('Press photo')}
+                                    onPress={() => {
+                                        props.route.params.toggleFavorite();
+                                    }}
                                 />
                             </HeaderButtons>
                         )

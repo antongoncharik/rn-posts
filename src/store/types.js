@@ -1,3 +1,3 @@
-const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
+export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
+export const ADD_POST = 'ADD_POST';
+export const DELETE_POST = 'DELETE_POST';

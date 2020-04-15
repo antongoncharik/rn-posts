@@ -1,13 +1,24 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
-import { DATA } from '../data';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { toggleFavorite } from '../store/actions/postsAction';
+
 
 export const Post = (props) => {
-    const post = DATA.find(item => item.id === props.id);
+    const data = useSelector(state => state.posts.posts);
+
+    const post = data.find(item => item.id === props.id);
+
+    const dispatch = useDispatch();
+
+    const handlerToggleFavorite = () => {
+        dispatch(toggleFavorite(props.id));
+    };
 
     return (
         <TouchableOpacity activeOpacity={0.7}
-            onPress={() => props.openPost(props.id, post.booked, post.date)}>
+            onPress={() => props.openPost(props.id, post.booked, post.date, handlerToggleFavorite)}>
             <View style={styles.container}>
                 <ImageBackground source={{ uri: post.img }} style={styles.image}>
                     <View style={styles.textContainer}>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Alert } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { PostsList } from '../components/PostsList';
-import { DATA } from '../data';
 
 export const MainScreen = (props) => {
+    const data = useSelector(state => state.posts.posts);
+
     const handlerDeletePost = (id) => {
         Alert.alert(
             'Delete post',
@@ -23,12 +25,13 @@ export const MainScreen = (props) => {
             { cancelable: false }
         )
     };
-    const handlerOpenPost = (id, booked, date) => {
-        props.navigation.navigate('PostScreen', { id, deletePost: handlerDeletePost, booked, date })
+
+    const handlerOpenPost = (id, booked, date, toggleFavorite) => {
+        props.navigation.navigate('PostScreen', { id, deletePost: handlerDeletePost, booked, date, toggleFavorite })
     };
 
     return (
-        <PostsList data={DATA}
+        <PostsList data={data}
             openPost={handlerOpenPost} />
     )
 };
