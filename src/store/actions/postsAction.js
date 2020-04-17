@@ -7,14 +7,14 @@ export const toggleFavorite = (data) => {
     })
 };
 
-export const addPost = (payload) => {
+export const addPost = (data) => {
     return ({
         type: ADD_POST,
-        payload: data,
+        payload: { text: data.text },
     })
 };
 
-export const deletePost = (payload) => {
+export const deletePost = (data) => {
     return ({
         type: DELETE_POST,
         payload: data,

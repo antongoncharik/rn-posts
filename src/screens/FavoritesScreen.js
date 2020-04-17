@@ -3,9 +3,13 @@ import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { PostsList } from '../components/PostsList';
+import { deletePost } from '../store/actions/postsAction';
+import { toggleFavorite } from '../store/actions/postsAction';
 
 export const FavoritesScreen = (props) => {
     const data = useSelector(state => state.posts.posts);
+
+    const dispatch = useDispatch();
 
     const handlerDeletePost = (id) => {
         Alert.alert(
@@ -19,15 +23,22 @@ export const FavoritesScreen = (props) => {
                 {
                     text: 'Delete',
                     style: 'destructive',
-                    onPress: () => { }
+                    onPress: () => {
+                        dispatch(deletePost(id));
+                        props.navigation.navigate('MainScreen');
+                    }
                 }
             ],
             { cancelable: false }
         )
     };
 
+    const handlerToggleFavorite = (id) => {
+        dispatch(toggleFavorite(id));
+    };
+
     const handlerOpenPost = (id, booked, date) => {
-        props.navigation.navigate('PostScreen', { id, deletePost: handlerDeletePost, booked, date })
+        props.navigation.navigate('PostScreen', { id, deletePost: handlerDeletePost, booked, date, toggleFavorite: handlerToggleFavorite })
     };
 
     return (

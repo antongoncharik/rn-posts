@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, Image, TextInput, TouchableWithoutFeedback, ScrollView, Keyboard, Button } from 'react-native';
 
-export const CreateScreen = () => {
+import { addPost } from '../store/actions/postsAction';
+
+export const CreateScreen = (props) => {
     const [inputValue, setInputValue] = useState('');
+
+    const dispatch = useDispatch();
 
     return (
         <ScrollView>
@@ -19,7 +24,11 @@ export const CreateScreen = () => {
                         style={styles.input}
                         multiline />
                     <Button title='Create'
-                        onPress={() => console.log(12)}
+                        onPress={() => {
+                            dispatch(addPost({ text: inputValue }));
+                            setInputValue('');
+                            props.navigation.navigate('MainScreen');
+                        }}
                         style={styles.button} />
                 </View>
             </TouchableWithoutFeedback>
@@ -44,7 +53,10 @@ const styles = StyleSheet.create({
     input: {
         width: '70%',
         borderBottomWidth: 2,
-        padding: 10,
+        padding: 4,
         marginBottom: 10,
+    },
+    button: {
+        width: '100%',
     },
 });

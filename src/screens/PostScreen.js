@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Image, ScrollView } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const PostScreen = (props) => {
     const data = useSelector(state => state.posts.posts);
 
     const post = data.find(item => item.id === props.route.params.id);
+
+    const booked = post ? post.booked : null;
+
+    useEffect(() => {
+        if (post) {
+            props.navigation.setParams({ booked });
+        }
+    }, [booked]);
+
+    if (!post) {
+        return null;
+    }
 
     return (
         <ScrollView style={styles.container}>

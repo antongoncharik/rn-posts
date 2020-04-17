@@ -17,18 +17,7 @@ import { AppHeaderIcon } from '../components/AppHeaderIcon';
 const PostStack = createStackNavigator();
 const PostStackScreen = (props) => {
     return (
-        <PostStack.Navigator
-        // screenOptions={{
-        //     headerStyle: {
-        //         backgroundColor: '#f4511e',
-        //     },
-        //     headerTintColor: '#fff',
-        //     headerTitleStyle: {
-        //         fontWeight: 'bold',
-        //         fontSize: 24,
-        //     },
-        // }}
-        >
+        <PostStack.Navigator>
             <PostStack.Screen
                 name='MainScreen'
                 component={MainScreen}
@@ -67,9 +56,7 @@ const PostStackScreen = (props) => {
                                 <Item
                                     title='Booked'
                                     iconName={iconName}
-                                    onPress={() => {
-                                        props.route.params.toggleFavorite();
-                                    }}
+                                    onPress={() => props.route.params.toggleFavorite(props.route.params.id)}
                                 />
                             </HeaderButtons>
                         )
