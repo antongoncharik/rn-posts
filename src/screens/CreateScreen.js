@@ -3,33 +3,38 @@ import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, Image, TextInput, TouchableWithoutFeedback, ScrollView, Keyboard, Button } from 'react-native';
 
 import { addPost } from '../store/actions/postsAction';
+import { PhotoPicker } from '../components/PhotoPicker';
 
 export const CreateScreen = (props) => {
     const [inputValue, setInputValue] = useState('');
+    const [image, setImage] = useState(null);
 
     const dispatch = useDispatch();
+
+    const handlerTakePhoto = uriImage => {
+        setImage(uriImage);
+    };
 
     return (
         <ScrollView>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.container}>
                     <Text style={styles.text}>Create new post</Text>
-                    <Image source={
-                        { uri: 'https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg' }
-                    }
+                    <Image source={{ uri: image }}
                         style={styles.image} />
                     <TextInput value={inputValue}
                         onChangeText={value => setInputValue(value)}
                         placeholder='Enter the post'
                         style={styles.input}
                         multiline />
-                    <Button title='Create'
+                    <PhotoPicker takePhoto={handlerTakePhoto} />
+                    {!!image && !!inputValue && <Button title='Create'
                         onPress={() => {
                             dispatch(addPost({ text: inputValue }));
                             setInputValue('');
                             props.navigation.navigate('MainScreen');
                         }}
-                        style={styles.button} />
+                        style={styles.button} />}
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>

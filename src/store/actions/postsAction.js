@@ -1,4 +1,11 @@
-import { TOGGLE_FAVORITE, ADD_POST, DELETE_POST } from '../types';
+import { LOAD_APP, TOGGLE_FAVORITE, ADD_POST, DELETE_POST } from '../types';
+
+export const loadApp = (data) => {
+    return ({
+        type: LOAD_APP,
+        payload: data,
+    })
+};
 
 export const toggleFavorite = (data) => {
     return ({

@@ -1,9 +1,17 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 import { Post } from '../components/Post';
 
 export const PostsList = (props) => {
+    if (!props.data.length) {
+        return (
+            <View style={styles.container}>
+                <Text>No posts</Text>
+            </View>
+        );
+    }
+
     return (
         <View style={styles.container}>
             <FlatList
