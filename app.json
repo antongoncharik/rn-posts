@@ -26,7 +26,7 @@
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.ant-goncharik.rn-post",
+      "package": "com.ant_goncharik.rn_post",
       "versionCode": 1
     }
   }
