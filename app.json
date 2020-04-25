@@ -22,11 +22,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ant_goncharik.ant_goncharik",
+      "bundleIdentifier": "com.ant-goncharik.rn-post",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.ant_goncharik.ant_goncharik",
+      "package": "com.ant-goncharik.rn-post",
       "versionCode": 1
     }
   }
