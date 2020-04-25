@@ -4,8 +4,7 @@
     "slug": "rn-posts",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +21,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ant_goncharik.ant_goncharik",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.ant_goncharik.ant_goncharik",
+      "versionCode": 1
     }
   }
 }
