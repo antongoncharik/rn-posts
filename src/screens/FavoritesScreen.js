@@ -33,8 +33,8 @@ export const FavoritesScreen = (props) => {
         )
     };
 
-    const handlerToggleFavorite = (id) => {
-        dispatch(toggleFavorite(id));
+    const handlerToggleFavorite = (id, booked) => {
+        dispatch(toggleFavorite(id, booked));
     };
 
     const handlerOpenPost = (id, booked, date) => {

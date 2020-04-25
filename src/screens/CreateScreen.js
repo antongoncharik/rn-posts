@@ -27,14 +27,14 @@ export const CreateScreen = (props) => {
                         placeholder='Enter the post'
                         style={styles.input}
                         multiline />
-                    <PhotoPicker takePhoto={handlerTakePhoto} />
-                    {!!image && !!inputValue && <Button title='Create'
+                    {!!image && !!inputValue && <View style={styles.button}><Button title='Create'
                         onPress={() => {
-                            dispatch(addPost({ text: inputValue }));
+                            dispatch(addPost({ text: inputValue, img: image, date: new Date().toJSON(), booked: false }));
                             setInputValue('');
                             props.navigation.navigate('MainScreen');
                         }}
-                        style={styles.button} />}
+                    /></View>}
+                    <PhotoPicker takePhoto={handlerTakePhoto} />
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     button: {
-        width: '100%',
+        marginBottom: 5,
     },
 });

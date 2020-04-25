@@ -39,8 +39,8 @@ export const PhotoPicker = (props) => {
 
     return (
         <View style={styles.container}>
-            {image && <Image source={{ uri: image }} style={styles.image} />}
             <Button title='Take photo' onPress={takePhoto} />
+            {image && <Image source={{ uri: image }} style={styles.image} />}
         </View>
     );
 };

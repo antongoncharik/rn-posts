@@ -56,7 +56,7 @@ const PostStackScreen = (props) => {
                                 <Item
                                     title='Booked'
                                     iconName={iconName}
-                                    onPress={() => props.route.params.toggleFavorite(props.route.params.id)}
+                                    onPress={() => props.route.params.toggleFavorite(props.route.params.id, booked)}
                                 />
                             </HeaderButtons>
                         )

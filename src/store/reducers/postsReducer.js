@@ -1,21 +1,25 @@
-import { LOAD_APP, TOGGLE_FAVORITE, ADD_POST, DELETE_POST } from '../types';
+import { LOAD_POSTS, TOGGLE_FAVORITE, ADD_POST, DELETE_POST } from '../types';
 
 const initialState = {
     posts: [],
+    loading: true,
 };
 
 export const postsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOAD_APP:
+        case LOAD_POSTS:
             return (
-                state
+                {
+                    posts: action.payload,
+                    loading: false,
+                }
             )
             break;
         case TOGGLE_FAVORITE:
             return (
                 {
                     posts: state.posts.map(item => {
-                        if (item.id === action.payload) {
+                        if (item.id === action.payload.id) {
                             return (
                                 {
                                     ...item, booked: !item.booked
@@ -30,13 +34,7 @@ export const postsReducer = (state = initialState, action) => {
         case ADD_POST:
             return (
                 {
-                    posts: [...state.posts, {
-                        id: Date.now().toString(),
-                        img: 'https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg',
-                        text: action.payload.text,
-                        date: new Date().toJSON(),
-                        booked: false
-                    }]
+                    posts: [...state.posts, action.payload]
                 }
             )
             break;
